@@ -1,0 +1,48 @@
+<ui:composition template="/WEB-INF/template/LayoutPadrao.xhtml"
+    xmlns="http://www.w3.org/1999/xhtml"
+    xmlns:h="http://java.sun.com/jsf/html"
+    xmlns:f="http://java.sun.com/jsf/core"
+    xmlns:ui="http://java.sun.com/jsf/facelets"
+    xmlns:p="http://primefaces.org/ui">
+
+
+    <ui:define name="titulo">Caixa Eletrônico</ui:define>
+    
+    <ui:define name="corpo">
+    	<h1>Saque</h1>
+    <h:form id="login">	
+    	<p:toolbar style="margin-top: 20px">
+    		<p:toolbarGroup>
+    			<p:commandButton value="Sacar" id="botaoSacar" action="#{sacarBean.sacar}"/>
+    			
+    		</p:toolbarGroup>
+    		
+    		<p:toolbarGroup>
+    			
+    			<p:commandButton value="Carregar Opçôes de CÉDULA" id="botaoCarregar" actionListener="#{sacarBean.carregaroOpcoesCedulas}"
+    			update="@form" process="@form"/>
+    		</p:toolbarGroup>
+    	
+    	</p:toolbar>
+    	
+    	<p:panelGrid columns="2" id="painel" style="width: 100%; margin-top: 20px"
+    			columnClasses="rotulo, campo">
+    		
+    		<p:outputLabel value="Saque Solicitado:" for="valor"/>
+    		<p:inputText id="valor" name = "valor" size="10" maxlength="10"  value="#{sacarBean.cedula.valor}" />
+    		
+    		
+    		<p:outputLabel value="Cédula:" for="categoria"/>
+    		<p:selectOneMenu id="categoria">
+    			<f:selectItem itemLabel="Escolha uma das opções de cédulas:"/>
+    			 <f:selectItems value="#{sacarBean.list}" />
+    			 
+    			   <p:ajax listener="#{sacarBean.carregaroOpcoesCedulas}" update="categoria" />
+            
+            
+    		</p:selectOneMenu>
+    	
+    	</p:panelGrid>
+    	</h:form>
+    </ui:define>
+</ui:composition>
